@@ -8,7 +8,7 @@
 import Foundation
 
 struct Hourly {
-    let dt: Int
+    let dt: Double
     let temp: Double
     let feelsLike: Double
     let pressure: Int
@@ -41,7 +41,7 @@ extension Hourly: Decodable {
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         
-        dt = try values.decode(Int.self, forKey: .dt)
+        dt = try values.decode(Double.self, forKey: .dt)
         temp = try values.decode(Double.self, forKey: .temp)
         feelsLike = try values.decode(Double.self, forKey: .feelsLike)
         pressure = try values.decode(Int.self, forKey: .pressure)

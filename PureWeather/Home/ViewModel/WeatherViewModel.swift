@@ -19,6 +19,7 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var currentTemp = ""
     @Published var clouds = ""
     @Published var dailyWeather = [DailyWeather]()
+    @Published var hourlyWeather = [HourlyWeather]()
     
     let ds: WeatherAPIDataSourceProtocol
     var subscriptions: Set<AnyCancellable> = []
@@ -106,12 +107,23 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
 
                 if self.dailyWeather.isEmpty {
                     for i in 0..<weather.daily.count {
-                        if let url = self.getDailyWeatherIconURL(urlIcon: weather.daily[i].weather[0].icon) {
+                        if let url = self.getDailyHourlyWeatherIconURL(urlIcon: weather.daily[i].weather[0].icon) {
                             self.unixTimeToWeekday(unixTime: weather.daily[i].dt, timeZone: weather.timezone, offset: 0, url: url, temp: "\(String(Int(weather.daily[i].temp.day)))°")
                         }
                     }
                 } else {
                     self.dailyWeather.removeAll()
+                }
+                
+                if self.hourlyWeather.isEmpty {
+                    for i in 0..<weather.hourly.count {
+                        if let url = self.getDailyHourlyWeatherIconURL(urlIcon: weather.hourly[i].weather[0].icon) {
+                            let hourly = HourlyWeather(time: self.unixTimeToTime(unixTime: weather.hourly[i].dt), date: self.unixTimeToDate(unixTime: weather.hourly[i].dt), iconURL: url, temp: "\(String(Int(weather.hourly[i].temp)))°")
+                            self.hourlyWeather.append(hourly)
+                        }
+                    }
+                } else {
+                    self.hourlyWeather.removeAll()
                 }
             }
             .store(in: &subscriptions)
@@ -124,7 +136,7 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         return nil
     }
     
-    func getDailyWeatherIconURL(urlIcon: String) -> URL? {
+    func getDailyHourlyWeatherIconURL(urlIcon: String) -> URL? {
         if let url = URL(string: "https://openweathermap.org/img/wn/\(urlIcon)@4x.png") {
             return url
         }
@@ -144,17 +156,25 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
             let calendarWeekday = Calendar.current.weekdaySymbols[weekday]
             let date = unixTimeToDate(unixTime: unixTime)
             
-            let daily = DailyWeather(weekday: calendarWeekday, date: date, iconURL: url, temp: temp)
+            let shortWeekday = calendarWeekday[0..<3].uppercased()
+            let daily = DailyWeather(weekday: shortWeekday, date: date, iconURL: url, temp: temp)
             dailyWeather.append(daily)
         }
     }
     
     func unixTimeToDate(unixTime: Double) -> String {
-        let dateFormatter = DateFormatter()
-        let epochTime = TimeInterval(unixTime)
-        let date = Date(timeIntervalSince1970: epochTime)
-        dateFormatter.locale = Locale(identifier: "en_US")
+        let tuple = DateFormatter().dateFormatter(unixTime: unixTime)
+        let dateFormatter = tuple.0
+        let date = tuple.1
         dateFormatter.dateFormat = "MM/dd"
+        return dateFormatter.string(from: date)
+    }
+    
+    func unixTimeToTime(unixTime: Double) -> String {
+        let tuple = DateFormatter().dateFormatter(unixTime: unixTime)
+        let dateFormatter = tuple.0
+        let date = tuple.1
+        dateFormatter.dateFormat = "h:mm a"
         return dateFormatter.string(from: date)
     }
 }

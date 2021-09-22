@@ -38,10 +38,22 @@ struct WeatherView: View {
                                     DailyForecast(dayOfWeek: dailyWeather.weekday, date: dailyWeather.date, iconURL: dailyWeather.iconURL, temp: dailyWeather.temp)
                                 }
                             }
-                            .padding(.horizontal, 15.0)
+                            .padding(.horizontal, 20.0)
                             .frame(maxWidth: .infinity)
                         }
-                        .padding(.top)
+                        .padding(.top, 15.0)
+                        ScrollView(.horizontal) {
+                            LazyHStack(spacing: 30.0) {
+                                ForEach(weatherViewModel.hourlyWeather[0..<weatherViewModel.hourlyWeather.count].indices, id: \.self) {
+                                    index in
+                                    let hourlyWeather = weatherViewModel.hourlyWeather[index]
+                                    HourlyForecast(time: hourlyWeather.time, date: hourlyWeather.date, iconURL: hourlyWeather.iconURL, temp: hourlyWeather.temp)
+                                }
+                            }
+                            .padding(.horizontal, 20.0)
+                            .frame(maxWidth: .infinity)
+                        }
+                        .padding(.top, 15.0)
                     }
                     Spacer()
                 }
@@ -62,6 +74,31 @@ struct DailyForecast: View {
     var body: some View {
         VStack {
             Text(dayOfWeek)
+                .font(.system(size: 16, weight: .medium, design: .default))
+                .foregroundColor(.white)
+            Text(date)
+                .font(.system(size: 16, weight: .medium, design: .default))
+                .foregroundColor(.white)
+            WebImage(url: iconURL)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 40, height: 40, alignment: .center)
+            Text(temp)
+                .font(.system(size: 28, weight: .medium))
+                .foregroundColor(.white)
+        }
+    }
+}
+
+struct HourlyForecast: View {
+    var time: String
+    var date: String
+    var iconURL: URL
+    var temp: String
+    
+    var body: some View {
+        VStack {
+            Text(time)
                 .font(.system(size: 16, weight: .medium, design: .default))
                 .foregroundColor(.white)
             Text(date)
