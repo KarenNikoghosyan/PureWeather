@@ -8,7 +8,7 @@
 import Foundation
 
 struct Daily {
-    let dt: Int
+    let dt: Double
     let sunrise: Int
     let sunset: Int
     let moonrise: Int
@@ -45,7 +45,7 @@ extension Daily: Decodable {
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         
-        dt = try values.decode(Int.self, forKey: .dt)
+        dt = try values.decode(Double.self, forKey: .dt)
         sunrise = try values.decode(Int.self, forKey: .sunrise)
         sunset = try values.decode(Int.self, forKey: .sunset)
         moonrise = try values.decode(Int.self, forKey: .moonrise)

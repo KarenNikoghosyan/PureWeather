@@ -19,7 +19,7 @@ struct WeatherView: View {
                 VStack(spacing: -20.0) {
                     Text(weatherViewModel.countryAndLocality)
                         .font(.largeTitle)
-                        .padding(.top, 16.0)
+                        .padding(.top, 32.0)
                     WebImage(url: weatherViewModel.getCurrentWeatherIconURL())
                         .resizable()
                         .scaledToFit()
@@ -31,12 +31,15 @@ struct WeatherView: View {
                         Text("\(weatherViewModel.clouds)")
                             .font(.title2)
                         ScrollView(.horizontal) {
-                            LazyHStack {
+                            LazyHStack(spacing: 30.0) {
                                 ForEach(weatherViewModel.dailyWeather[0..<weatherViewModel.dailyWeather.count].indices, id: \.self) {
                                     index in
-                                    DailyForecast(dayOfWeek: weatherViewModel.dailyWeather[index].weekday, iconURL: weatherViewModel.dailyWeather[index].iconURL, temp: weatherViewModel.dailyWeather[index].temp)
+                                    let dailyWeather = weatherViewModel.dailyWeather[index]
+                                    DailyForecast(dayOfWeek: dailyWeather.weekday, date: dailyWeather.date, iconURL: dailyWeather.iconURL, temp: dailyWeather.temp)
                                 }
                             }
+                            .padding(.horizontal, 15.0)
+                            .frame(maxWidth: .infinity)
                         }
                         .padding(.top)
                     }
@@ -52,12 +55,16 @@ struct WeatherView: View {
 
 struct DailyForecast: View {
     var dayOfWeek: String
+    var date: String
     var iconURL: URL
     var temp: String
     
     var body: some View {
         VStack {
             Text(dayOfWeek)
+                .font(.system(size: 16, weight: .medium, design: .default))
+                .foregroundColor(.white)
+            Text(date)
                 .font(.system(size: 16, weight: .medium, design: .default))
                 .foregroundColor(.white)
             WebImage(url: iconURL)

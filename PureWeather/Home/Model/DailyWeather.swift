@@ -9,6 +9,7 @@ import Foundation
 
 struct DailyWeather {
     let weekday: String
+    let date: String
     let iconURL: URL
     let temp: String
 }

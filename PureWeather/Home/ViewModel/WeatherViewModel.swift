@@ -107,7 +107,7 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
                 if self.dailyWeather.isEmpty {
                     for i in 0..<weather.daily.count {
                         if let url = self.getDailyWeatherIconURL(urlIcon: weather.daily[i].weather[0].icon) {
-                            self.unixTimeToWeekday(unixTime: Double(weather.daily[i].dt), timeZone: weather.timezone, offset: 0, url: url, temp: "\(String(Int(weather.daily[i].temp.day)))°")
+                            self.unixTimeToWeekday(unixTime: weather.daily[i].dt, timeZone: weather.timezone, offset: 0, url: url, temp: "\(String(Int(weather.daily[i].temp.day)))°")
                         }
                     }
                 } else {
@@ -142,9 +142,19 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
             }
             let weekday = (cal.component(.weekday, from: time) + offset - 1) % 7
             let calendarWeekday = Calendar.current.weekdaySymbols[weekday]
+            let date = unixTimeToDate(unixTime: unixTime)
             
-            let daily = DailyWeather(weekday: calendarWeekday, iconURL: url, temp: temp)
+            let daily = DailyWeather(weekday: calendarWeekday, date: date, iconURL: url, temp: temp)
             dailyWeather.append(daily)
         }
+    }
+    
+    func unixTimeToDate(unixTime: Double) -> String {
+        let dateFormatter = DateFormatter()
+        let epochTime = TimeInterval(unixTime)
+        let date = Date(timeIntervalSince1970: epochTime)
+        dateFormatter.locale = Locale(identifier: "en_US")
+        dateFormatter.dateFormat = "MM/dd"
+        return dateFormatter.string(from: date)
     }
 }
