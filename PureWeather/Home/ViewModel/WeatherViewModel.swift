@@ -23,6 +23,8 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     let ds: WeatherAPIDataSourceProtocol
     var subscriptions: Set<AnyCancellable> = []
+    var currentLat = 0.0
+    var currentLon = 0.0
     
     var userLatitude: String {
         return "\(lastLocation?.coordinate.latitude ?? 0)"
@@ -61,7 +63,9 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else {return}
-        getAddressFromLatLon(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+        currentLat = location.coordinate.latitude
+        currentLon = location.coordinate.longitude
+        getAddressFromLatLon(latitude: currentLat, longitude: currentLon)
     }
     
     func getAddressFromLatLon(latitude: Double, longitude: Double) {
@@ -82,7 +86,7 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
                 guard let placemark = placemarks?[0],
                       let country = placemark.country,
                       let locality = placemark.locality else {return}
-                
+
                 self.countryAndLocality = "\(country), \(locality)"
                 self.getCurrentWeather(lat: latitude, lon: longitude)
             }
@@ -176,5 +180,11 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         let date = tuple.1
         dateFormatter.dateFormat = "h:mm a"
         return dateFormatter.string(from: date)
+    }
+    
+    func reloadData() {
+        dailyWeather.removeAll()
+        hourlyWeather.removeAll()
+        getAddressFromLatLon(latitude: currentLat, longitude: currentLon)
     }
 }

@@ -7,15 +7,31 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
+import Refresh
 
 struct WeatherView: View {
     @ObservedObject private var weatherViewModel = WeatherViewModel(ds: WeatherAPIDataSource())
+    @State private var isRefreshing = false
     
     var body: some View {
         ZStack {
             LinearGradient(gradient: Gradient(colors: [.blue, .white]), startPoint: .topLeading, endPoint: .bottomTrailing)
                 .edgesIgnoringSafeArea(.all)
             ScrollView {
+                RefreshHeader(refreshing: $isRefreshing) {
+                    weatherViewModel.reloadData()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        isRefreshing = false
+                    }
+                } label: { progress in
+                    if self.isRefreshing {
+                        ProgressView()
+                        //Text("refreshing...")
+                    } else {
+                        Text("Pull to refresh")
+                    }
+                }
+
                 VStack(spacing: -20.0) {
                     Text(weatherViewModel.countryAndLocality)
                         .font(.largeTitle)
@@ -61,6 +77,7 @@ struct WeatherView: View {
                 .frame(maxWidth: .infinity)
                 
             }
+            .enableRefresh()
         }
     }
 }

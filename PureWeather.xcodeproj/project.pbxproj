@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -19,6 +19,7 @@
 		783260CE26FB35B700B72E44 /* DailyWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783260CD26FB35B700B72E44 /* DailyWeather.swift */; };
 		783260D626FB6DAA00B72E44 /* PureWeatherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783260D526FB6DAA00B72E44 /* PureWeatherTests.swift */; };
 		7866F1CC26F791C90042FCEF /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7866F1CB26F791C90042FCEF /* WeatherViewModel.swift */; };
+		787285F226FCBF4000FEC438 /* Refresh in Frameworks */ = {isa = PBXBuildFile; productRef = 787285F126FCBF4000FEC438 /* Refresh */; };
 		78D3172326F5163B0066B0B4 /* PureWeatherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D3172226F5163B0066B0B4 /* PureWeatherApp.swift */; };
 		78D3172726F5163C0066B0B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78D3172626F5163C0066B0B4 /* Assets.xcassets */; };
 		78D3172A26F5163C0066B0B4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78D3172926F5163C0066B0B4 /* Preview Assets.xcassets */; };
@@ -77,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				787285F226FCBF4000FEC438 /* Refresh in Frameworks */,
 				A761B5D68831D96CCB1001F2 /* Pods_PureWeather.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -246,6 +248,9 @@
 			dependencies = (
 			);
 			name = PureWeather;
+			packageProductDependencies = (
+				787285F126FCBF4000FEC438 /* Refresh */,
+			);
 			productName = PureWeather;
 			productReference = 78D3171F26F5163B0066B0B4 /* PureWeather.app */;
 			productType = "com.apple.product-type.application";
@@ -277,6 +282,9 @@
 				Base,
 			);
 			mainGroup = 78D3171626F5163B0066B0B4;
+			packageReferences = (
+				787285F026FCBF4000FEC438 /* XCRemoteSwiftPackageReference "Refresh" */,
+			);
 			productRefGroup = 78D3172026F5163B0066B0B4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -633,6 +641,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		787285F026FCBF4000FEC438 /* XCRemoteSwiftPackageReference "Refresh" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/wxxsw/Refresh";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		787285F126FCBF4000FEC438 /* Refresh */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 787285F026FCBF4000FEC438 /* XCRemoteSwiftPackageReference "Refresh" */;
+			productName = Refresh;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 78D3171726F5163B0066B0B4 /* Project object */;
 }
