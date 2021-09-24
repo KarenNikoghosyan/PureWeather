@@ -13,7 +13,7 @@ protocol WeatherAPIDataSourceProtocol {
 }
 
 struct WeatherAPIDataSource: WeatherAPIDataSourceProtocol {
-    static let apiKey = "e9ec1350857a4533cbf7d872abcf0b98"
+    static let apiKey = "{API-KEY}"
     
     func fetchWeather(lat: Double, lon: Double) -> AnyPublisher<WeatherAPIResponse, WeatherError> {
         guard let url = URL(string: "https://api.openweathermap.org/data/2.5/onecall?lat=\(lat)&lon=\(lon)&units=metric&exclude=minutely&appid=\(WeatherAPIDataSource.apiKey)")
