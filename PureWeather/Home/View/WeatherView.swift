@@ -12,11 +12,11 @@ import Refresh
 struct WeatherView: View {
     @ObservedObject private var weatherViewModel = WeatherViewModel(ds: WeatherAPIDataSource())
     @State private var isRefreshing = false
+    @State private var isNight = false
     
     var body: some View {
         ZStack {
-            LinearGradient(gradient: Gradient(colors: [.blue, .white]), startPoint: .topLeading, endPoint: .bottomTrailing)
-                .edgesIgnoringSafeArea(.all)
+            BackgroundColor(topColor: isNight ? .black : .blue, bottomColor: isNight ? .gray : .white)
             ScrollView {
                 RefreshHeader(refreshing: $isRefreshing) {
                     weatherViewModel.reloadData()
@@ -26,7 +26,6 @@ struct WeatherView: View {
                 } label: { progress in
                     if self.isRefreshing {
                         ProgressView()
-                        //Text("refreshing...")
                     } else {
                         Text("Pull to refresh")
                     }
@@ -70,6 +69,17 @@ struct WeatherView: View {
                             .frame(maxWidth: .infinity)
                         }
                         .padding(.top, 15.0)
+                        Button {
+                            isNight.toggle()
+                        } label: {
+                            Text("CHANGE DAY TIME")
+                                .frame(width: UIScreen.main.bounds.width / 2 + 50.0, height: 50.0, alignment: .center)
+                                .font(.custom("Futura-Bold", size: 16))
+                        }
+                        .background(.white)
+                        .foregroundColor(.blue)
+                        .cornerRadius(10.0)
+                        .padding(.top, 40.0)
                     }
                     Spacer()
                 }
@@ -79,6 +89,16 @@ struct WeatherView: View {
             }
             .enableRefresh()
         }
+    }
+}
+
+struct BackgroundColor: View {
+    var topColor: Color
+    var bottomColor: Color
+    
+    var body: some View {
+        LinearGradient(gradient: Gradient(colors: [topColor, bottomColor]), startPoint: .topLeading, endPoint: .bottomTrailing)
+            .edgesIgnoringSafeArea(.all)
     }
 }
 
