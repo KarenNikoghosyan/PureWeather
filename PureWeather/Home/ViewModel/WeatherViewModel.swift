@@ -112,7 +112,7 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
                 if self.dailyWeather.isEmpty {
                     for i in 0..<weather.daily.count {
                         if let url = self.getDailyHourlyWeatherIconURL(urlIcon: weather.daily[i].weather[0].icon) {
-                            self.unixTimeToWeekday(unixTime: weather.daily[i].dt, timeZone: weather.timezone, offset: 0, url: url, temp: "\(String(Int(weather.daily[i].temp.day)))°")
+                            self.appendDailyWeather(weather: weather, url: url, i: i)
                         }
                     }
                 } else {
@@ -133,6 +133,11 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
             .store(in: &subscriptions)
     }
     
+    func appendDailyWeather(weather: WeatherAPIResponse, url: URL, i: Int) {
+        guard let daily = unixTimeToWeekday(unixTime: weather.daily[i].dt, timeZone: weather.timezone, offset: 0, url: url, temp: "\(String(Int(weather.daily[i].temp.day)))°") else {return}
+        dailyWeather.append(daily)
+    }
+    
     func getCurrentWeatherIconURL() -> URL? {
         if let url = URL(string: "https://openweathermap.org/img/wn/\(urlIcon)@4x.png") {
             return url
@@ -147,9 +152,9 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         return nil
     }
     
-    func unixTimeToWeekday(unixTime: Double, timeZone: String, offset: Int, url: URL ,temp: String) {
+    func unixTimeToWeekday(unixTime: Double, timeZone: String, offset: Int, url: URL ,temp: String) -> DailyWeather? {
         if timeZone == "" || unixTime == 0.0 {
-            return
+            return nil
         } else {
             let time = Date(timeIntervalSince1970: unixTime)
             var cal = Calendar(identifier: .gregorian)
@@ -162,7 +167,7 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
             
             let shortWeekday = calendarWeekday[0..<3].uppercased()
             let daily = DailyWeather(weekday: shortWeekday, date: date, iconURL: url, temp: temp)
-            dailyWeather.append(daily)
+            return daily
         }
     }
     
@@ -170,7 +175,7 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         let tuple = DateFormatter().dateFormatter(unixTime: unixTime)
         let dateFormatter = tuple.0
         let date = tuple.1
-        dateFormatter.dateFormat = "MM/dd"
+        dateFormatter.dateFormat = "dd/MM"
         return dateFormatter.string(from: date)
     }
     

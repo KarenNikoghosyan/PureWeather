@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DailyWeather {
+struct DailyWeather: Equatable {
     let weekday: String
     let date: String
     let iconURL: URL
