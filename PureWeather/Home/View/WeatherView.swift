@@ -10,13 +10,13 @@ import SDWebImageSwiftUI
 import Refresh
 
 struct WeatherView: View {
-    @ObservedObject private var weatherViewModel = WeatherViewModel(ds: WeatherAPIDataSource())
+    @StateObject var weatherViewModel = WeatherViewModel(ds: WeatherAPIDataSource())
+    @ObservedObject var mainViewModel: MainViewModel
     @State private var isRefreshing = false
-    @State private var isNight = false
     
     var body: some View {
         ZStack {
-            BackgroundColor(topColor: isNight ? .black : .blue, bottomColor: isNight ? .gray : .white)
+            BackgroundColor(topColor: mainViewModel.isNight ? .black : .blue, bottomColor: mainViewModel.isNight ? .gray : .white)
             ScrollView {
                 RefreshHeader(refreshing: $isRefreshing) {
                     weatherViewModel.reloadData()
@@ -26,8 +26,11 @@ struct WeatherView: View {
                 } label: { progress in
                     if self.isRefreshing {
                         ProgressView()
+                            .progressViewStyle(DarkBlueShadowProgressViewStyle())
                     } else {
                         Text("Pull to refresh")
+                            .foregroundColor(.white)
+                            .font(.custom("Futura", size: 16))
                     }
                 }
 
@@ -70,7 +73,7 @@ struct WeatherView: View {
                         }
                         .padding(.top, 15.0)
                         Button {
-                            isNight.toggle()
+                            mainViewModel.isNight.toggle()
                         } label: {
                             Text("CHANGE DAY TIME")
                                 .frame(width: UIScreen.main.bounds.width / 2 + 50.0, height: 50.0, alignment: .center)
@@ -92,13 +95,10 @@ struct WeatherView: View {
     }
 }
 
-struct BackgroundColor: View {
-    var topColor: Color
-    var bottomColor: Color
-    
-    var body: some View {
-        LinearGradient(gradient: Gradient(colors: [topColor, bottomColor]), startPoint: .topLeading, endPoint: .bottomTrailing)
-            .edgesIgnoringSafeArea(.all)
+struct DarkBlueShadowProgressViewStyle: ProgressViewStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        ProgressView(configuration)
+            .shadow(color: Color(red: 0, green: 0, blue: 0.6), radius: 4.0, x: 1.0, y: 2.0)
     }
 }
 
@@ -154,6 +154,6 @@ struct HourlyForecast: View {
 
 struct WeatherView_Previews: PreviewProvider {
     static var previews: some View {
-        WeatherView()
+        WeatherView(mainViewModel: MainViewModel())
     }
 }
