@@ -23,7 +23,9 @@ struct SearchView: View {
                     Button {
                         if searchText != "" {
                             searchViewModel.getWeatherByCityName(city: searchText)
-                            isHidden = false
+                            withAnimation {
+                                isHidden = false
+                            }
                         }
                     } label: {
                         Text("Search")
