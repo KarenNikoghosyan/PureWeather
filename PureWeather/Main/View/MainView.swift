@@ -41,6 +41,6 @@ struct BackgroundColor: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView().environmentObject(WeatherViewModel(ds: WeatherAPIDataSource()))
+        MainView()
     }
 }

@@ -6,26 +6,86 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct SearchView: View {
+    @StateObject var searchViewModel = SearchViewModel(searchDS: WeatherSearchAPIDataSource(), ds: WeatherAPIDataSource())
     @ObservedObject var mainViewModel: MainViewModel
     @State private var searchText = ""
-    
-    init(mainViewModel: MainViewModel) {
-        self.mainViewModel = mainViewModel
-        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-    }
+    @State private var isHidden = true
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                BackgroundColor(topColor: mainViewModel.isNight ? .black : .blue, bottomColor: mainViewModel.isNight ? .gray : .white)
+        ZStack {
+            BackgroundColor(topColor: mainViewModel.isNight ? .black : .blue, bottomColor: mainViewModel.isNight ? .gray : .white)
+            VStack {
+                HStack {
+                    SearchBar(placeholder: "City", text: $searchText, isHidden: $isHidden)
+                    Button {
+                        if searchText != "" {
+                            searchViewModel.getWeatherByCityName(city: searchText)
+                            isHidden = false
+                        }
+                    } label: {
+                        Text("Search")
+                            .font(.custom("Futura-Bold", size: 18))
+                            .foregroundColor(.white)
+                    }
+                }
+                .padding(.horizontal)
+                Label(searchViewModel.city, systemImage: "location.fill")
+                    .font(.custom("Futura-Bold", size: 20))
+                    .foregroundColor(.white)
+                    .padding(.top, 20)
+                    .hidden(isHidden)
+                Text(searchViewModel.getCurrentTime())
+                    .font(.custom("Futura", size: 18))
+                    .foregroundColor(.init(UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1)))
+                    .padding(.top, 5)
+                    .hidden(isHidden)
+                HStack(spacing: -10) {
+                    WebImage(url: searchViewModel.urlIcon)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 130, height: 130)
+                        .hidden(isHidden)
+                    Text(searchViewModel.currentTemp)
+                        .font(.custom("Futura", size: 50))
+                        .foregroundColor(.white)
+                        .hidden(isHidden)
+                }
+                Spacer()
             }
-            .navigationTitle("Search")
         }
-        .searchable(text: $searchText)
-        .accentColor(.white)
-        .navigationViewStyle(StackNavigationViewStyle())
+    }
+}
+
+struct SearchBar: View {
+    var placeholder: String
+    
+    @Binding var text: String
+    @Binding var isHidden: Bool
+    
+    var body: some View {
+        HStack {
+            Image(systemName: "magnifyingglass").foregroundColor(.secondary)
+            TextField(placeholder, text: $text)
+            if text != "" {
+                Image(systemName: "xmark.circle.fill")
+                    .imageScale(.medium)
+                    .foregroundColor(Color(.systemGray3))
+                    .padding(3)
+                    .onTapGesture {
+                        withAnimation {
+                            self.text = ""
+                            isHidden = true
+                        }
+                    }
+            }
+        }
+        .padding(10)
+        .background(Color(.systemGray6))
+        .cornerRadius(12)
+        .padding(.vertical, 10)
     }
 }
 
