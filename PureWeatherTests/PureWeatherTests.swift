@@ -26,13 +26,13 @@ class PureWeatherTests: XCTestCase {
     
     func testDateFormat() {
         let value = "24/09"
-        let date = sut.unixTimeToDate(unixTime: 1632506400)
+        let date = 1632506400.unixTimeToDate
         XCTAssertEqual(value, date, "Wrong date format, should be dd/MM")
     }
     
     func testTimeFormat() {
         let value = "9:00 PM"
-        let time = sut.unixTimeToTime(unixTime: 1632506400)
+        let time = 1632506400.unixTimeToTime
         XCTAssertEqual(value, time, "Wrong time format, should be h:mm a")
     }
     

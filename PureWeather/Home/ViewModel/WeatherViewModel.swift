@@ -122,7 +122,7 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
                 if self.hourlyWeather.isEmpty {
                     for i in 0..<weather.hourly.count {
                         if let url = self.getDailyHourlyWeatherIconURL(urlIcon: weather.hourly[i].weather[0].icon) {
-                            let hourly = HourlyWeather(time: self.unixTimeToTime(unixTime: weather.hourly[i].dt), date: self.unixTimeToDate(unixTime: weather.hourly[i].dt), iconURL: url, temp: "\(String(Int(weather.hourly[i].temp)))°")
+                            let hourly = HourlyWeather(time: weather.hourly[i].dt.unixTimeToTime, date: weather.hourly[i].dt.unixTimeToDate, iconURL: url, temp: "\(String(Int(weather.hourly[i].temp)))°")
                             self.hourlyWeather.append(hourly)
                         }
                     }
@@ -163,30 +163,14 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
             }
             let weekday = (cal.component(.weekday, from: time) + offset - 1) % 7
             let calendarWeekday = Calendar.current.weekdaySymbols[weekday]
-            let date = unixTimeToDate(unixTime: unixTime)
+            let date = unixTime.unixTimeToDate
             
             let shortWeekday = calendarWeekday[0..<3].uppercased()
             let daily = DailyWeather(weekday: shortWeekday, date: date, iconURL: url, temp: temp)
             return daily
         }
     }
-    
-    func unixTimeToDate(unixTime: Double) -> String {
-        let tuple = DateFormatter().dateFormatter(unixTime: unixTime)
-        let dateFormatter = tuple.0
-        let date = tuple.1
-        dateFormatter.dateFormat = "dd/MM"
-        return dateFormatter.string(from: date)
-    }
-    
-    func unixTimeToTime(unixTime: Double) -> String {
-        let tuple = DateFormatter().dateFormatter(unixTime: unixTime)
-        let dateFormatter = tuple.0
-        let date = tuple.1
-        dateFormatter.dateFormat = "h:mm a"
-        return dateFormatter.string(from: date)
-    }
-    
+
     func reloadData() {
         dailyWeather.removeAll()
         hourlyWeather.removeAll()

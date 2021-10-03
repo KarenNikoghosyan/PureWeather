@@ -82,7 +82,7 @@ struct WeatherView: View {
                         .background(.white)
                         .foregroundColor(.blue)
                         .cornerRadius(10.0)
-                        .padding(.top, 40.0)
+                        .padding(.top, 25.0)
                     }
                     Spacer()
                 }
