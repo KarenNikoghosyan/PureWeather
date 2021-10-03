@@ -93,4 +93,8 @@ class SearchViewModel: ObservableObject {
         let dateString = dateFormatter.string(from: date)
         return dateString
     }
+    
+    func reloadData() {
+        dailyWeather.removeAll()
+    }
 }

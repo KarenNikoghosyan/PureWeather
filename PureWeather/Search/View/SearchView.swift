@@ -23,6 +23,7 @@ struct SearchView: View {
                         SearchBar(placeholder: "City", text: $searchText, isHidden: $isHidden)
                         Button {
                             if searchText != "" {
+                                searchViewModel.reloadData()
                                 searchViewModel.getWeatherByCityName(city: searchText)
                                 withAnimation {
                                     isHidden = false
