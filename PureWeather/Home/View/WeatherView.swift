@@ -36,7 +36,7 @@ struct WeatherView: View {
 
                 VStack(spacing: -20.0) {
                     Text(weatherViewModel.countryAndLocality)
-                        .font(.largeTitle)
+                        .font(.custom("Futura-Bold", size: 30))
                         .padding(.top, 32.0)
                     WebImage(url: weatherViewModel.getCurrentWeatherIconURL())
                         .resizable()
@@ -44,10 +44,10 @@ struct WeatherView: View {
                         .frame(width: 150, height: 150, alignment: .center)
                     VStack {
                         Text("\(weatherViewModel.currentTemp)")
-                            .font(.system(size: 80))
+                            .font(.custom("Futura-Bold", size: 72))
                             .padding(.leading, 30.0)
                         Text("\(weatherViewModel.clouds)")
-                            .font(.title2)
+                            .font(.custom("Futura-Bold", size: 17))
                         ScrollView(.horizontal) {
                             LazyHStack(spacing: 30.0) {
                                 ForEach(weatherViewModel.dailyWeather[0..<weatherViewModel.dailyWeather.count].indices, id: \.self) {
@@ -61,7 +61,7 @@ struct WeatherView: View {
                         }
                         .padding(.top, 15.0)
                         ScrollView(.horizontal) {
-                            LazyHStack(spacing: 30.0) {
+                            LazyHStack(spacing: 20.0) {
                                 ForEach(weatherViewModel.hourlyWeather[0..<weatherViewModel.hourlyWeather.count].indices, id: \.self) {
                                     index in
                                     let hourlyWeather = weatherViewModel.hourlyWeather[index]
@@ -109,19 +109,19 @@ struct DailyForecast: View {
     var temp: String
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             Text(dayOfWeek)
-                .font(.system(size: 16, weight: .medium, design: .default))
+                .font(.custom("Futura-Bold", size: 15))
                 .foregroundColor(.white)
             Text(date)
-                .font(.system(size: 16, weight: .medium, design: .default))
+                .font(.custom("Futura-Bold", size: 15))
                 .foregroundColor(.white)
             WebImage(url: iconURL)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 40, height: 40, alignment: .center)
             Text(temp)
-                .font(.system(size: 28, weight: .medium))
+                .font(.custom("Futura-Bold", size: 24))
                 .foregroundColor(.white)
         }
     }
@@ -134,19 +134,18 @@ struct HourlyForecast: View {
     var temp: String
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             Text(time)
-                .font(.system(size: 16, weight: .medium, design: .default))
+                .font(.custom("Futura-Bold", size: 15))
                 .foregroundColor(.white)
             Text(date)
-                .font(.system(size: 16, weight: .medium, design: .default))
+                .font(.custom("Futura-Bold", size: 15))
                 .foregroundColor(.white)
             WebImage(url: iconURL)
                 .resizable()
-                .scaledToFit()
                 .frame(width: 40, height: 40, alignment: .center)
             Text(temp)
-                .font(.system(size: 28, weight: .medium))
+                .font(.custom("Futura-Bold", size: 24))
                 .foregroundColor(.white)
         }
     }

@@ -67,6 +67,7 @@ struct SearchView: View {
                         .hidden(isHidden)
                     ZStack {
                         LinearGradient(colors: [.blue, .white], startPoint: .topLeading, endPoint: .bottomTrailing)
+                            .blur(radius: 20)
                         ScrollView(.horizontal) {
                             LazyHStack(spacing: 30) {
                                 ForEach(searchViewModel.dailyWeather.indices, id: \.self) { index in
@@ -77,7 +78,6 @@ struct SearchView: View {
                             .padding(.horizontal, 20.0)
                         }
                     }
-                    .blur(radius: 20)
                     .frame(width: UIScreen.main.bounds.width - 30, height: 190, alignment: .center)
                     .cornerRadius(10)
                     .padding()
