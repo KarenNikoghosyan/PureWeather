@@ -52,42 +52,46 @@ struct WeatherView: View {
                             LazyHStack(spacing: 30.0) {
                                 ForEach(weatherViewModel.dailyWeather[0..<weatherViewModel.dailyWeather.count].indices, id: \.self) {
                                     index in
-                                    let dailyWeather = weatherViewModel.dailyWeather[index]
-                                    DailyForecast(dayOfWeek: dailyWeather.weekday, date: dailyWeather.date, iconURL: dailyWeather.iconURL, temp: dailyWeather.temp)
+                                    if !weatherViewModel.dailyWeather.isEmpty {
+                                        let dailyWeather = weatherViewModel.dailyWeather[index]
+                                        DailyForecast(dayOfWeek: dailyWeather.weekday, date: dailyWeather.date, iconURL: dailyWeather.iconURL, temp: dailyWeather.temp)
+                                    }
                                 }
                             }
-                            .padding(.horizontal, 20.0)
-                            .frame(maxWidth: .infinity)
                         }
                         .padding(.top, 15.0)
                         ScrollView(.horizontal) {
                             LazyHStack(spacing: 20.0) {
                                 ForEach(weatherViewModel.hourlyWeather[0..<weatherViewModel.hourlyWeather.count].indices, id: \.self) {
                                     index in
-                                    let hourlyWeather = weatherViewModel.hourlyWeather[index]
-                                    HourlyForecast(time: hourlyWeather.time, date: hourlyWeather.date, iconURL: hourlyWeather.iconURL, temp: hourlyWeather.temp)
+                                    if !weatherViewModel.hourlyWeather.isEmpty {
+                                        let hourlyWeather = weatherViewModel.hourlyWeather[index]
+                                        HourlyForecast(time: hourlyWeather.time, date: hourlyWeather.date, iconURL: hourlyWeather.iconURL, temp: hourlyWeather.temp)
+                                    }
                                 }
                             }
-                            .padding(.horizontal, 20.0)
-                            .frame(maxWidth: .infinity)
                         }
                         .padding(.top, 15.0)
                         Button {
                             mainViewModel.isNight.toggle()
                         } label: {
                             Text("CHANGE DAY TIME")
-                                .frame(width: UIScreen.main.bounds.width / 2 + 50.0, height: 50.0, alignment: .center)
+                                .frame(height: 50.0, alignment: .center)
+                                .frame(maxWidth: .infinity)
                                 .font(.custom("Futura-Bold", size: 16))
                         }
                         .background(.white)
                         .foregroundColor(.blue)
                         .cornerRadius(10.0)
                         .padding(.top, 25.0)
+                        .padding(.horizontal, 50)
                     }
+                    .frame(maxWidth: .infinity)
                     Spacer()
                 }
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity)
+                .padding(.horizontal, 20.0)
                 
             }
             .enableRefresh()
@@ -121,7 +125,7 @@ struct DailyForecast: View {
                 .scaledToFit()
                 .frame(width: 40, height: 40, alignment: .center)
             Text(temp)
-                .font(.custom("Futura-Bold", size: 24))
+                .font(.custom("Futura-Bold", size: 23))
                 .foregroundColor(.white)
         }
     }
@@ -145,7 +149,7 @@ struct HourlyForecast: View {
                 .resizable()
                 .frame(width: 40, height: 40, alignment: .center)
             Text(temp)
-                .font(.custom("Futura-Bold", size: 24))
+                .font(.custom("Futura-Bold", size: 23))
                 .foregroundColor(.white)
         }
     }

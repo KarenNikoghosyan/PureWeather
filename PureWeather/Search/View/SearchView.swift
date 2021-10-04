@@ -67,21 +67,24 @@ struct SearchView: View {
                         .padding(.top, 5)
                         .hidden(isHidden)
                     ZStack {
-                        LinearGradient(colors: [.blue, .white], startPoint: .topLeading, endPoint: .bottomTrailing)
-                            .blur(radius: 20)
+                        BackgroundColor(topColor: mainViewModel.isNight ? .black : .blue, bottomColor: mainViewModel.isNight ? .gray : .white)
+                            .blur(radius: 15)
                         ScrollView(.horizontal) {
                             LazyHStack(spacing: 30) {
                                 ForEach(searchViewModel.dailyWeather.indices, id: \.self) { index in
-                                    let dailyWeather = searchViewModel.dailyWeather[index]
-                                    DailyForecast(dayOfWeek: dailyWeather.weekday, date: dailyWeather.date, iconURL: dailyWeather.iconURL, temp: dailyWeather.temp)
+                                    if !searchViewModel.dailyWeather.isEmpty {
+                                        let dailyWeather = searchViewModel.dailyWeather[index]
+                                        DailyForecast(dayOfWeek: dailyWeather.weekday, date: dailyWeather.date, iconURL: dailyWeather.iconURL, temp: dailyWeather.temp)
+                                    }
                                 }
                             }
                             .padding(.horizontal, 20.0)
                         }
                     }
-                    .frame(width: UIScreen.main.bounds.width - 30, height: 190, alignment: .center)
                     .cornerRadius(10)
-                    .padding()
+                    .frame(height: 190, alignment: .center)
+                    .frame(maxWidth: .infinity)
+                    .padding(.horizontal, 25)
                     .hidden(isHidden)
                     Spacer()
                 }
