@@ -11,7 +11,7 @@ import SwiftUI
 struct PureWeatherApp: App {
     var body: some Scene {
         WindowGroup {
-            MainView()
+            IntroView()
         }
     }
 }
