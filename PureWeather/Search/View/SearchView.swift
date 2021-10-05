@@ -36,49 +36,66 @@ struct SearchView: View {
                         }
                     }
                     .padding(.horizontal)
+                    
                     Label(searchViewModel.city, systemImage: "location.fill")
                         .font(.custom("Futura-Bold", size: 20))
                         .foregroundColor(.white)
                         .padding(.top, 20)
                         .hidden(isHidden)
+                    
                     Text(searchViewModel.getCurrentTime())
                         .font(.custom("Futura", size: 18))
                         .foregroundColor(.init(UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1)))
                         .padding(.top, 5)
                         .hidden(isHidden)
+                    
                     HStack(spacing: -10) {
                         WebImage(url: searchViewModel.urlIcon)
                             .resizable()
                             .scaledToFit()
                             .frame(width: 130, height: 130)
                             .hidden(isHidden)
+                        
                         Text(searchViewModel.currentTemp)
                             .font(.custom("Futura", size: 50))
                             .foregroundColor(.white)
                             .hidden(isHidden)
                     }
+                    
                     Text("Feels Like \(searchViewModel.feelsLike)")
                         .font(.custom("Futura-Bold", size: 20))
                         .foregroundColor(.white)
                         .hidden(isHidden)
+                    
                     Text(searchViewModel.weatherType)
                         .font(.custom("Futura-Bold", size: 20))
                         .foregroundColor(.white)
                         .padding(.top, 5)
                         .hidden(isHidden)
+                    
                     ZStack {
                         BackgroundColor(topColor: mainViewModel.isNight ? .black : .blue, bottomColor: mainViewModel.isNight ? .gray : .white)
                             .blur(radius: 15)
-                        ScrollView(.horizontal) {
-                            LazyHStack(spacing: 30) {
-                                ForEach(searchViewModel.dailyWeather.indices, id: \.self) { index in
-                                    if !searchViewModel.dailyWeather.isEmpty {
-                                        let dailyWeather = searchViewModel.dailyWeather[index]
-                                        DailyForecast(dayOfWeek: dailyWeather.weekday, date: dailyWeather.date, iconURL: dailyWeather.iconURL, temp: dailyWeather.temp)
+                        
+                        VStack {
+                            Text("Daily")
+                                .font(.custom("Futura-Bold", size: 18))
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 25)
+                                .padding(.top, 10)
+                            
+                            ScrollView(.horizontal) {
+                                LazyHStack(spacing: 30) {
+                                    ForEach(searchViewModel.dailyWeather.indices, id: \.self) { index in
+                                        if !searchViewModel.dailyWeather.isEmpty {
+                                            let dailyWeather = searchViewModel.dailyWeather[index]
+                                            DailyForecast(dayOfWeek: dailyWeather.weekday, date: dailyWeather.date, iconURL: dailyWeather.iconURL, temp: dailyWeather.temp)
+                                        }
                                     }
                                 }
+                                .padding(.horizontal, 20.0)
                             }
-                            .padding(.horizontal, 20.0)
                         }
                     }
                     .cornerRadius(10)

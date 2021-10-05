@@ -23,6 +23,7 @@ struct WeatherView: View {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         isRefreshing = false
                     }
+                    
                 } label: { progress in
                     if self.isRefreshing {
                         ProgressView()
@@ -38,40 +39,68 @@ struct WeatherView: View {
                     Text(weatherViewModel.countryAndLocality)
                         .font(.custom("Futura-Bold", size: 30))
                         .padding(.top, 32.0)
+                    
                     WebImage(url: weatherViewModel.getCurrentWeatherIconURL())
                         .resizable()
                         .scaledToFit()
                         .frame(width: 150, height: 150, alignment: .center)
+                    
                     VStack {
                         Text("\(weatherViewModel.currentTemp)")
                             .font(.custom("Futura-Bold", size: 72))
                             .padding(.leading, 30.0)
+                        
                         Text("\(weatherViewModel.clouds)")
                             .font(.custom("Futura-Bold", size: 17))
-                        ScrollView(.horizontal) {
-                            LazyHStack(spacing: 30.0) {
-                                ForEach(weatherViewModel.dailyWeather[0..<weatherViewModel.dailyWeather.count].indices, id: \.self) {
-                                    index in
-                                    if !weatherViewModel.dailyWeather.isEmpty {
-                                        let dailyWeather = weatherViewModel.dailyWeather[index]
-                                        DailyForecast(dayOfWeek: dailyWeather.weekday, date: dailyWeather.date, iconURL: dailyWeather.iconURL, temp: dailyWeather.temp)
+                        
+                        ZStack {
+                            VStack(spacing: -10) {
+                                Text("Daily")
+                                    .font(.custom("Futura-Bold", size: 18))
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .padding(.leading, 5)
+                                    .padding(.top, 10)
+                                
+                                ScrollView(.horizontal) {
+                                    LazyHStack(spacing: 30.0) {
+                                        ForEach(weatherViewModel.dailyWeather[0..<weatherViewModel.dailyWeather.count].indices, id: \.self) {
+                                            index in
+                                            if !weatherViewModel.dailyWeather.isEmpty {
+                                                let dailyWeather = weatherViewModel.dailyWeather[index]
+                                                DailyForecast(dayOfWeek: dailyWeather.weekday, date: dailyWeather.date, iconURL: dailyWeather.iconURL, temp: dailyWeather.temp)
+                                            }
+                                        }
                                     }
                                 }
                             }
                         }
-                        .padding(.top, 15.0)
-                        ScrollView(.horizontal) {
-                            LazyHStack(spacing: 20.0) {
-                                ForEach(weatherViewModel.hourlyWeather[0..<weatherViewModel.hourlyWeather.count].indices, id: \.self) {
-                                    index in
-                                    if !weatherViewModel.hourlyWeather.isEmpty {
-                                        let hourlyWeather = weatherViewModel.hourlyWeather[index]
-                                        HourlyForecast(time: hourlyWeather.time, date: hourlyWeather.date, iconURL: hourlyWeather.iconURL, temp: hourlyWeather.temp)
+                        .frame(height: 190, alignment: .center)
+                        .frame(maxWidth: .infinity)
+                        
+                        ZStack {
+                            VStack {
+                                Text("Hourly")
+                                    .font(.custom("Futura-Bold", size: 18))
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .padding(.leading, 5)
+                                    .padding(.top, 10)
+                                
+                                ScrollView(.horizontal) {
+                                    LazyHStack(spacing: 20.0) {
+                                        ForEach(weatherViewModel.hourlyWeather[0..<weatherViewModel.hourlyWeather.count].indices, id: \.self) {
+                                            index in
+                                            if !weatherViewModel.hourlyWeather.isEmpty {
+                                                let hourlyWeather = weatherViewModel.hourlyWeather[index]
+                                                HourlyForecast(time: hourlyWeather.time, date: hourlyWeather.date, iconURL: hourlyWeather.iconURL, temp: hourlyWeather.temp)
+                                            }
+                                        }
                                     }
                                 }
                             }
                         }
-                        .padding(.top, 15.0)
+                        
                         Button {
                             mainViewModel.isNight.toggle()
                         } label: {
@@ -85,6 +114,7 @@ struct WeatherView: View {
                         .cornerRadius(10.0)
                         .padding(.top, 25.0)
                         .padding(.horizontal, 50)
+                        
                     }
                     .frame(maxWidth: .infinity)
                     Spacer()
