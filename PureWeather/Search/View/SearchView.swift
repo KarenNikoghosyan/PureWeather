@@ -101,11 +101,12 @@ struct SearchView: View {
                     .cornerRadius(10)
                     .frame(height: 190, alignment: .center)
                     .frame(maxWidth: .infinity)
-                    .padding(.horizontal, 25)
+                    .padding(.horizontal, 15)
                     .hidden(isHidden)
                     Spacer()
                 }
             }
+            .padding(.top, 35)
         }
     }
 }

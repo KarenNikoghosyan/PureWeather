@@ -22,7 +22,8 @@ struct IntroView: View {
                 Image("cloudy", bundle: .main)
                 
                 ProgressView()
-                    .padding()
+                    .progressViewStyle(DarkBlueShadowProgressViewStyle())
+                    .padding(.top, 30)
                     .scaleEffect(1.3, anchor: .center)
                     .task {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {

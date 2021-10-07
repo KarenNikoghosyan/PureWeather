@@ -17,6 +17,7 @@ struct WeatherView: View {
     var body: some View {
         ZStack {
             BackgroundColor(topColor: mainViewModel.isNight ? .black : .blue, bottomColor: mainViewModel.isNight ? .gray : .white)
+            
             ScrollView {
                 RefreshHeader(refreshing: $isRefreshing) {
                     weatherViewModel.reloadData()
@@ -125,6 +126,7 @@ struct WeatherView: View {
                 
             }
             .enableRefresh()
+            .padding(.top, 35)
         }
     }
 }

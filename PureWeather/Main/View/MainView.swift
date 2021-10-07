@@ -11,37 +11,34 @@ struct MainView: View {
     @StateObject var mainViewModel = MainViewModel()
     @State private var selectedTab = 0
     
-    let numTabs = 2
-    let minDragTranslationForSwipe: CGFloat = 50
-    
     init() {
-        UITabBar.appearance().backgroundColor = UIColor.white
+        UIPageControl.appearance().currentPageIndicatorTintColor = .red
+        UIPageControl.appearance().pageIndicatorTintColor = UIColor.black.withAlphaComponent(0.2)
     }
     
     var body: some View {
-        TabView(selection: $selectedTab) {
-            WeatherView(mainViewModel: mainViewModel)
-                .tabItem {
-                    Label("Home", systemImage: "house.fill")
+        GeometryReader { geometry in
+            ScrollView {
+                TabView(selection: $selectedTab) {
+                    WeatherView(mainViewModel: mainViewModel)
+                        .tabItem {
+                            Label("Home", systemImage: "house.fill")
+                        }
+                        .tag(0)
+
+                    SearchView(mainViewModel: mainViewModel)
+                        .tabItem {
+                            Label("Search", systemImage: "magnifyingglass")
+                        }
+                        .tag(1)
                 }
-                .tag(0)
-                .highPriorityGesture(DragGesture().onEnded({ self.handleSwipe(translation: $0.translation.width )}))
-            SearchView(mainViewModel: mainViewModel)
-                .tabItem {
-                    Label("Search", systemImage: "magnifyingglass")
-                }
-                .tag(1)
-                .highPriorityGesture(DragGesture().onEnded({ self.handleSwipe(translation: $0.translation.width )}))
+                .frame(width: geometry.size.width, height: geometry.size.height)
+                .tabViewStyle(PageTabViewStyle())
+                .animation(.easeInOut(duration: 0.4))
+                .transition(.slide)
+            }
         }
-        .accentColor(.red)
-    }
-    
-    func handleSwipe(translation: CGFloat) {
-        if translation > minDragTranslationForSwipe && selectedTab > 0 {
-            selectedTab -= 1
-        } else if translation < -minDragTranslationForSwipe && selectedTab < numTabs - 1 {
-            selectedTab += 1
-        }
+        .edgesIgnoringSafeArea(.all)
     }
 }
 
