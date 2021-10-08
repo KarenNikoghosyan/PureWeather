@@ -107,6 +107,11 @@ struct SearchView: View {
                 }
             }
             .padding(.top, 35)
+            .alert("\(searchText) isn't a valid city name", isPresented: $searchViewModel.isInvalidCity) {
+                Button("OK", role: .cancel) {
+                    searchViewModel.isInvalidCity = false
+                }
+            }
         }
     }
 }

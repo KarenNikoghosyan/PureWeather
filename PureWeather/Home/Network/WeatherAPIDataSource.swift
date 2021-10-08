@@ -23,10 +23,10 @@ struct WeatherAPIDataSource: WeatherAPIDataSourceProtocol {
         }
         return URLSession.shared.dataTaskPublisher(for: url)
             .tryMap { response -> Data in
-                guard let httpURLResponse = response.response as? HTTPURLResponse,
-                      httpURLResponse.statusCode == 200 else {
-                          throw WeatherError.statusCode
-                      }
+                if let httpURLResponse = response.response as? HTTPURLResponse,
+                   !(200...299).contains(httpURLResponse.statusCode) {
+                        throw WeatherError.statusCode
+                    }
                 return response.data
             }
             .decode(type: WeatherAPIResponse.self, decoder: JSONDecoder())

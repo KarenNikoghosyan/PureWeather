@@ -124,17 +124,9 @@
 		780ECE1C270CBB5600FF51C1 /* Intro */ = {
 			isa = PBXGroup;
 			children = (
-				780ECE1D270CBB6E00FF51C1 /* View */,
+				7862FFDE270F8D9000DFB84D /* View */,
 			);
 			path = Intro;
-			sourceTree = "<group>";
-		};
-		780ECE1D270CBB6E00FF51C1 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				780ECE1A270C796B00FF51C1 /* IntroView.swift */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		782C493D26FBCEC50021957F /* Extensions */ = {
@@ -206,6 +198,14 @@
 				7862F1382704D55E006662BD /* MainViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		7862FFDE270F8D9000DFB84D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				780ECE1A270C796B00FF51C1 /* IntroView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		78D3171626F5163B0066B0B4 = {

@@ -19,6 +19,7 @@ class SearchViewModel: ObservableObject {
     @Published var feelsLike = ""
     @Published var weatherType = ""
     @Published var dailyWeather = [DailyWeather]()
+    @Published var isInvalidCity = false
     
     init(searchDS: WeatherSearchAPIDataSourceProtocol, ds: WeatherAPIDataSourceProtocol) {
         self.searchDS = searchDS
@@ -28,15 +29,19 @@ class SearchViewModel: ObservableObject {
     func getWeatherByCityName(city: String) {
         searchDS.searchWeather(city: city)
             .receive(on: DispatchQueue.main, options: nil)
-            .sink { completion in
+            .sink {[weak self] completion in
+                guard let self = self else {return}
+                
                 switch completion {
                 case .finished:break
                 case .failure(let error):
+                    self.isInvalidCity = true
                     print("Error: \(error)")
                 }
             } receiveValue: {[weak self] coordinate in
                 guard let self = self else {return}
                 
+                self.isInvalidCity = false
                 self.city = coordinate.name
                 self.getWeatherByLatLon(lat: coordinate.coord.lat, lon: coordinate.coord.lon)
             }
