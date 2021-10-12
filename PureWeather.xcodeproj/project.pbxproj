@@ -25,6 +25,7 @@
 		78523C3E27060E750014A2BE /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78523C3D27060E750014A2BE /* View+Extensions.swift */; };
 		7862F1392704D55E006662BD /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7862F1382704D55E006662BD /* MainViewModel.swift */; };
 		7866F1CC26F791C90042FCEF /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7866F1CB26F791C90042FCEF /* WeatherViewModel.swift */; };
+		787216FD27160E6F00DBC78A /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787216FC27160E6F00DBC78A /* UserDefaults+Extensions.swift */; };
 		787285F226FCBF4000FEC438 /* Refresh in Frameworks */ = {isa = PBXBuildFile; productRef = 787285F126FCBF4000FEC438 /* Refresh */; };
 		78CD0E2A2709CE91007713E5 /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78CD0E292709CE91007713E5 /* Double+Extensions.swift */; };
 		78D3172326F5163B0066B0B4 /* PureWeatherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D3172226F5163B0066B0B4 /* PureWeatherApp.swift */; };
@@ -69,6 +70,7 @@
 		78523C3D27060E750014A2BE /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		7862F1382704D55E006662BD /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		7866F1CB26F791C90042FCEF /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
+		787216FC27160E6F00DBC78A /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
 		789C14C7129840AB7BE08607 /* Pods-PureWeather.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PureWeather.debug.xcconfig"; path = "Target Support Files/Pods-PureWeather/Pods-PureWeather.debug.xcconfig"; sourceTree = "<group>"; };
 		78CD0E292709CE91007713E5 /* Double+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
 		78D3171F26F5163B0066B0B4 /* PureWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PureWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -136,6 +138,7 @@
 				782C494026FBD5F40021957F /* DateFormatter+Extensions.swift */,
 				78523C3D27060E750014A2BE /* View+Extensions.swift */,
 				78CD0E292709CE91007713E5 /* Double+Extensions.swift */,
+				787216FC27160E6F00DBC78A /* UserDefaults+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -489,6 +492,7 @@
 				7840DB1527032B5000AD30C0 /* SearchView.swift in Sources */,
 				7866F1CC26F791C90042FCEF /* WeatherViewModel.swift in Sources */,
 				78D3172326F5163B0066B0B4 /* PureWeatherApp.swift in Sources */,
+				787216FD27160E6F00DBC78A /* UserDefaults+Extensions.swift in Sources */,
 				782C493F26FBCEDD0021957F /* String+Extensions.swift in Sources */,
 				7840DB132703297E00AD30C0 /* MainView.swift in Sources */,
 				782C493C26FBCD840021957F /* HourlyWeather.swift in Sources */,

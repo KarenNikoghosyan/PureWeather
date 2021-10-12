@@ -104,6 +104,7 @@ struct WeatherView: View {
                         
                         Button {
                             mainViewModel.isNight.toggle()
+                            mainViewModel.save()
                         } label: {
                             Text("CHANGE DAY TIME")
                                 .frame(height: 50.0, alignment: .center)

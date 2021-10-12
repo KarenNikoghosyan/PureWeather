@@ -14,6 +14,11 @@ struct SearchView: View {
     @State private var searchText = ""
     @State private var isHidden = true
     
+    init(mainViewModel: MainViewModel) {
+        self.mainViewModel = mainViewModel
+        UITextField.appearance().clearButtonMode = .whileEditing
+    }
+    
     var body: some View {
         ZStack {
             BackgroundColor(topColor: mainViewModel.isNight ? .black : .blue, bottomColor: mainViewModel.isNight ? .gray : .white)
@@ -21,6 +26,7 @@ struct SearchView: View {
                 VStack {
                     HStack {
                         SearchBar(placeholder: "City", text: $searchText, isHidden: $isHidden)
+                        
                         Button {
                             if searchText != "" {
                                 searchViewModel.reloadData()
@@ -124,20 +130,8 @@ struct SearchBar: View {
     
     var body: some View {
         HStack {
-            Image(systemName: "magnifyingglass").foregroundColor(.secondary)
+            Image(systemName: "location.magnifyingglass").foregroundColor(.secondary)
             TextField(placeholder, text: $text)
-            if text != "" {
-                Image(systemName: "xmark.circle.fill")
-                    .imageScale(.medium)
-                    .foregroundColor(Color(.systemGray3))
-                    .padding(3)
-                    .onTapGesture {
-                        withAnimation {
-                            self.text = ""
-                            isHidden = true
-                        }
-                    }
-            }
         }
         .padding(10)
         .background(Color(.systemGray6))

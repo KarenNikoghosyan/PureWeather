@@ -9,10 +9,11 @@ import SwiftUI
 
 struct IntroView: View {
     @State var isPresented = false
+    @State var isNight = false
     
     var body: some View {
         ZStack {
-            BackgroundColor(topColor: .blue, bottomColor: .white)
+            BackgroundColor(topColor: isNight ? .black : .blue, bottomColor: isNight ? .gray : .white)
             
             VStack {
                 Text("PureWeather")
@@ -22,7 +23,7 @@ struct IntroView: View {
                 Image("cloudy", bundle: .main)
                 
                 ProgressView()
-                    .progressViewStyle(DarkBlueShadowProgressViewStyle())
+                    .progressViewStyle(CircularProgressViewStyle(tint: .gray))
                     .padding(.top, 30)
                     .scaleEffect(1.3, anchor: .center)
                     .task {
@@ -34,6 +35,9 @@ struct IntroView: View {
             }
             .padding(.top, 100)
         }
+        .onAppear(perform: {
+            isNight = UserDefaults.standard.getIsNight()
+        })
         .fullScreenCover(isPresented: $isPresented, onDismiss: nil) {
             MainView()
         }

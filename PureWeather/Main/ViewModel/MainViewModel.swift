@@ -8,5 +8,9 @@
 import Foundation
 
 class MainViewModel: ObservableObject {
-    @Published var isNight = false
+    @Published var isNight = UserDefaults.standard.getIsNight()
+    
+    func save() {
+        UserDefaults.standard.setIsNight(value: self.isNight)
+    }
 }
