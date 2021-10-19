@@ -30,15 +30,15 @@ struct WeatherView: View {
                         ProgressView()
                             .progressViewStyle(DarkBlueShadowProgressViewStyle())
                     } else {
-                        Text("Pull to refresh")
+                        Text(weatherViewModel.pullToRefresh)
                             .foregroundColor(.white)
-                            .font(.custom("Futura", size: 16))
+                            .font(.custom(weatherViewModel.futura, size: 16))
                     }
                 }
 
                 VStack(spacing: -20.0) {
                     Text(weatherViewModel.countryAndLocality)
-                        .font(.custom("Futura-Bold", size: 30))
+                        .font(.custom(weatherViewModel.futuraBold, size: 30))
                         .padding(.top, 32.0)
                     
                     WebImage(url: weatherViewModel.getCurrentWeatherIconURL())
@@ -48,16 +48,16 @@ struct WeatherView: View {
                     
                     VStack {
                         Text("\(weatherViewModel.currentTemp)")
-                            .font(.custom("Futura-Bold", size: 72))
+                            .font(.custom(weatherViewModel.futuraBold, size: 72))
                             .padding(.leading, 30.0)
                         
                         Text("\(weatherViewModel.clouds)")
-                            .font(.custom("Futura-Bold", size: 17))
+                            .font(.custom(weatherViewModel.futuraBold, size: 17))
                         
                         ZStack {
                             VStack(spacing: -10) {
-                                Text("Daily")
-                                    .font(.custom("Futura-Bold", size: 18))
+                                Text(weatherViewModel.daily)
+                                    .font(.custom(weatherViewModel.futuraBold, size: 18))
                                     .foregroundColor(.white)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .padding(.leading, 5)
@@ -81,8 +81,8 @@ struct WeatherView: View {
                         
                         ZStack {
                             VStack {
-                                Text("Hourly")
-                                    .font(.custom("Futura-Bold", size: 18))
+                                Text(weatherViewModel.hourly)
+                                    .font(.custom(weatherViewModel.futuraBold, size: 18))
                                     .foregroundColor(.white)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .padding(.leading, 5)
@@ -106,10 +106,10 @@ struct WeatherView: View {
                             mainViewModel.isNight.toggle()
                             mainViewModel.save()
                         } label: {
-                            Text("CHANGE DAY TIME")
+                            Text(weatherViewModel.changeDayTime)
                                 .frame(height: 50.0, alignment: .center)
                                 .frame(maxWidth: .infinity)
-                                .font(.custom("Futura-Bold", size: 16))
+                                .font(.custom(weatherViewModel.futuraBold, size: 16))
                         }
                         .background(.white)
                         .foregroundColor(.blue)
@@ -193,3 +193,7 @@ struct WeatherView_Previews: PreviewProvider {
         WeatherView(mainViewModel: MainViewModel())
     }
 }
+
+//Geometry reader
+//subviews
+//fonts - red

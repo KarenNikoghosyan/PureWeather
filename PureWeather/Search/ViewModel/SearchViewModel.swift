@@ -21,6 +21,13 @@ class SearchViewModel: ObservableObject {
     @Published var dailyWeather = [DailyWeather]()
     @Published var isInvalidCity = false
     
+    let cityString = "City"
+    let search = "Search"
+    let locationFillImage = "location.fill"
+    let daily = "Daily"
+    let futura = "Futura"
+    let futuraBold = "Futura-Bold"
+    
     init(searchDS: WeatherSearchAPIDataSourceProtocol, ds: WeatherAPIDataSourceProtocol) {
         self.searchDS = searchDS
         self.ds = ds

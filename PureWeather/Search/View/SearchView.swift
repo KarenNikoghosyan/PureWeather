@@ -25,7 +25,7 @@ struct SearchView: View {
             ScrollView {
                 VStack {
                     HStack {
-                        SearchBar(placeholder: "City", text: $searchText, isHidden: $isHidden)
+                        SearchBar(placeholder: searchViewModel.cityString, text: $searchText, isHidden: $isHidden)
                         
                         Button {
                             if searchText != "" {
@@ -36,21 +36,21 @@ struct SearchView: View {
                                 }
                             }
                         } label: {
-                            Text("Search")
-                                .font(.custom("Futura-Bold", size: 18))
+                            Text(searchViewModel.search)
+                                .font(.custom(searchViewModel.futuraBold, size: 18))
                                 .foregroundColor(.white)
                         }
                     }
                     .padding(.horizontal)
                     
-                    Label(searchViewModel.city, systemImage: "location.fill")
-                        .font(.custom("Futura-Bold", size: 20))
+                    Label(searchViewModel.city, systemImage: searchViewModel.locationFillImage)
+                        .font(.custom(searchViewModel.futuraBold, size: 20))
                         .foregroundColor(.white)
                         .padding(.top, 20)
                         .hidden(isHidden)
                     
                     Text(searchViewModel.getCurrentTime())
-                        .font(.custom("Futura", size: 18))
+                        .font(.custom(searchViewModel.futura, size: 18))
                         .foregroundColor(.init(UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1)))
                         .padding(.top, 5)
                         .hidden(isHidden)
@@ -63,18 +63,18 @@ struct SearchView: View {
                             .hidden(isHidden)
                         
                         Text(searchViewModel.currentTemp)
-                            .font(.custom("Futura", size: 50))
+                            .font(.custom(searchViewModel.futura, size: 50))
                             .foregroundColor(.white)
                             .hidden(isHidden)
                     }
                     
                     Text("Feels Like \(searchViewModel.feelsLike)")
-                        .font(.custom("Futura-Bold", size: 20))
+                        .font(.custom(searchViewModel.futuraBold, size: 20))
                         .foregroundColor(.white)
                         .hidden(isHidden)
                     
                     Text(searchViewModel.weatherType)
-                        .font(.custom("Futura-Bold", size: 20))
+                        .font(.custom(searchViewModel.futuraBold, size: 20))
                         .foregroundColor(.white)
                         .padding(.top, 5)
                         .hidden(isHidden)
@@ -84,8 +84,8 @@ struct SearchView: View {
                             .blur(radius: 15)
                         
                         VStack {
-                            Text("Daily")
-                                .font(.custom("Futura-Bold", size: 18))
+                            Text(searchViewModel.daily)
+                                .font(.custom(searchViewModel.futuraBold, size: 18))
                                 .foregroundColor(.white)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 25)

@@ -26,6 +26,13 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     var currentLat = 0.0
     var currentLon = 0.0
     
+    let pullToRefresh = "Pull to refresh"
+    let changeDayTime = "CHANGE DAY TIME"
+    let futura = "Futura"
+    let futuraBold = "Futura-Bold"
+    let hourly = "Hourly"
+    let daily = "Daily"
+    
     var userLatitude: String {
         return "\(lastLocation?.coordinate.latitude ?? 0)"
     }
