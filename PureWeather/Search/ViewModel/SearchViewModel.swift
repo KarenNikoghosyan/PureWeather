@@ -21,7 +21,7 @@ class SearchViewModel: ObservableObject {
     @Published var dailyWeather = [DailyWeather]()
     @Published var isInvalidCity = false
     
-    let cityString = "City"
+    let cityString = "City/Country"
     let search = "Search"
     let locationFillImage = "location.fill"
     let daily = "Daily"

@@ -10,7 +10,9 @@ import CoreLocation
 import Combine
 
 class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
+    
     private let locationManager = CLLocationManager()
+    
     @Published var locationStatus: CLAuthorizationStatus?
     @Published var lastLocation: CLLocation?
     

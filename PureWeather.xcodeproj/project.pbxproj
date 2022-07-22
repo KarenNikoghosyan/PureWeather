@@ -26,7 +26,6 @@
 		7862F1392704D55E006662BD /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7862F1382704D55E006662BD /* MainViewModel.swift */; };
 		7866F1CC26F791C90042FCEF /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7866F1CB26F791C90042FCEF /* WeatherViewModel.swift */; };
 		787216FD27160E6F00DBC78A /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787216FC27160E6F00DBC78A /* UserDefaults+Extensions.swift */; };
-		787285F226FCBF4000FEC438 /* Refresh in Frameworks */ = {isa = PBXBuildFile; productRef = 787285F126FCBF4000FEC438 /* Refresh */; };
 		78CD0E2A2709CE91007713E5 /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78CD0E292709CE91007713E5 /* Double+Extensions.swift */; };
 		78D3172326F5163B0066B0B4 /* PureWeatherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D3172226F5163B0066B0B4 /* PureWeatherApp.swift */; };
 		78D3172726F5163C0066B0B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78D3172626F5163C0066B0B4 /* Assets.xcassets */; };
@@ -36,6 +35,7 @@
 		78E2419B26F9D4D800652062 /* WeatherAPIDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E2419A26F9D4D800652062 /* WeatherAPIDataSource.swift */; };
 		78EDFD3D27059EFD00D739E3 /* WeatherSearchAPIDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78EDFD3C27059EFD00D739E3 /* WeatherSearchAPIDataSource.swift */; };
 		78EDFD422705C81400D739E3 /* SearchAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78EDFD412705C81400D739E3 /* SearchAPIResponse.swift */; };
+		78F0B656288AA64500375EBC /* Refresh in Frameworks */ = {isa = PBXBuildFile; productRef = 78F0B655288AA64500375EBC /* Refresh */; };
 		A761B5D68831D96CCB1001F2 /* Pods_PureWeather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F57E67108A37CB9C895AC13 /* Pods_PureWeather.framework */; };
 /* End PBXBuildFile section */
 
@@ -98,7 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				787285F226FCBF4000FEC438 /* Refresh in Frameworks */,
+				78F0B656288AA64500375EBC /* Refresh in Frameworks */,
 				A761B5D68831D96CCB1001F2 /* Pods_PureWeather.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -359,7 +359,7 @@
 			);
 			name = PureWeather;
 			packageProductDependencies = (
-				787285F126FCBF4000FEC438 /* Refresh */,
+				78F0B655288AA64500375EBC /* Refresh */,
 			);
 			productName = PureWeather;
 			productReference = 78D3171F26F5163B0066B0B4 /* PureWeather.app */;
@@ -393,7 +393,7 @@
 			);
 			mainGroup = 78D3171626F5163B0066B0B4;
 			packageReferences = (
-				787285F026FCBF4000FEC438 /* XCRemoteSwiftPackageReference "Refresh" */,
+				78F0B654288AA64500375EBC /* XCRemoteSwiftPackageReference "Refresh" */,
 			);
 			productRefGroup = 78D3172026F5163B0066B0B4 /* Products */;
 			projectDirPath = "";
@@ -763,7 +763,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		787285F026FCBF4000FEC438 /* XCRemoteSwiftPackageReference "Refresh" */ = {
+		78F0B654288AA64500375EBC /* XCRemoteSwiftPackageReference "Refresh" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/wxxsw/Refresh";
 			requirement = {
@@ -774,9 +774,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		787285F126FCBF4000FEC438 /* Refresh */ = {
+		78F0B655288AA64500375EBC /* Refresh */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 787285F026FCBF4000FEC438 /* XCRemoteSwiftPackageReference "Refresh" */;
+			package = 78F0B654288AA64500375EBC /* XCRemoteSwiftPackageReference "Refresh" */;
 			productName = Refresh;
 		};
 /* End XCSwiftPackageProductDependency section */
