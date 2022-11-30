@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
+    
     @StateObject var mainViewModel = MainViewModel()
     @State private var selectedTab = 0
     
@@ -36,6 +37,12 @@ struct MainView: View {
                 .tabViewStyle(PageTabViewStyle())
                 .animation(.easeInOut(duration: 0.4))
                 .transition(.slide)
+            }
+            .gesture(DragGesture().onChanged{ _ in
+                hideKeyboard()
+            })
+            .onTapGesture {
+                hideKeyboard()
             }
         }
         .edgesIgnoringSafeArea(.all)

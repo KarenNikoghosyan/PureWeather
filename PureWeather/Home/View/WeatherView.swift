@@ -39,7 +39,7 @@ struct WeatherView: View {
                 VStack(spacing: -20.0) {
                     Text(weatherViewModel.countryAndLocality)
                         .font(.custom(weatherViewModel.futuraBold, size: 30))
-                        .padding(.top, 32.0)
+                        .padding(.top, 32)
                     
                     WebImage(url: weatherViewModel.getCurrentWeatherIconURL())
                         .resizable()
@@ -193,7 +193,3 @@ struct WeatherView_Previews: PreviewProvider {
         WeatherView(mainViewModel: MainViewModel())
     }
 }
-
-//Geometry reader
-//subviews
-//fonts - red

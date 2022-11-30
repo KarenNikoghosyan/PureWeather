@@ -22,6 +22,7 @@ struct SearchView: View {
     var body: some View {
         ZStack {
             BackgroundColor(topColor: mainViewModel.isNight ? .black : .blue, bottomColor: mainViewModel.isNight ? .gray : .white)
+            
             ScrollView {
                 VStack {
                     HStack {
@@ -111,6 +112,7 @@ struct SearchView: View {
                     .hidden(isHidden)
                     Spacer()
                 }
+                .padding(.top, 16)
             }
             .padding(.top, 35)
             .alert("\(searchText) isn't a valid city name", isPresented: $searchViewModel.isInvalidCity) {
@@ -130,11 +132,27 @@ struct SearchBar: View {
     
     var body: some View {
         HStack {
-            Image(systemName: "location.magnifyingglass").foregroundColor(.secondary)
-            TextField(placeholder, text: $text)
+            Image(systemName: "location.magnifyingglass")
+                .foregroundColor(.gray)
+            TextField("", text: $text)
+                .foregroundColor(.gray)
+                .background(
+                    ZStack{
+                        Color.white
+                        if text.count == 0 {
+                            HStack {
+                                Text(placeholder)
+                                    .font(.custom("Futura", size: 14))
+                                    .foregroundColor(.gray)
+                                Spacer()
+                            }
+                            .frame(maxWidth: .infinity)
+                        }
+                    }
+                )
         }
         .padding(10)
-        .background(Color(.systemGray6))
+        .background(Color(.white))
         .cornerRadius(12)
         .padding(.vertical, 10)
     }

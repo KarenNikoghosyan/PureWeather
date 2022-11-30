@@ -48,6 +48,7 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         super.init()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.distanceFilter = 10
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
     }
@@ -85,6 +86,7 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         
         let location: CLLocation = CLLocation(latitude: center.latitude, longitude: center.longitude)
         
+        locationManager.stopUpdatingLocation()
         ceo.reverseGeocodeLocation(location) {[weak self] placemarks, error in
             guard let self = self else {return}
             if error != nil {
