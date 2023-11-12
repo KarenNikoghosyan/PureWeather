@@ -110,6 +110,7 @@ struct SearchView: View {
                     .frame(maxWidth: .infinity)
                     .padding(.horizontal, 15)
                     .hidden(isHidden)
+                    
                     Spacer()
                 }
                 .padding(.top, 16)

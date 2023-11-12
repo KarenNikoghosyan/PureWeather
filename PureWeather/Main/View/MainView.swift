@@ -35,8 +35,6 @@ struct MainView: View {
                 }
                 .frame(width: geometry.size.width, height: geometry.size.height)
                 .tabViewStyle(PageTabViewStyle())
-                .animation(.easeInOut(duration: 0.4))
-                .transition(.slide)
             }
             .gesture(DragGesture().onChanged{ _ in
                 hideKeyboard()
